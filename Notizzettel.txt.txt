@@ -1,0 +1,114 @@
+// =========================================
+
+Modern C++
+
+Peter Loos  // "Du"
+
+C/C++ , Java, C#,  JavaScript, Mobile Progr. (Java)
+
+Back-to-the-Roots: C++
+
+=============================================
+
+2  Tools:
+
+== Visual Studio 2022 Community
+
+== Github.com
+
+https://github.com/pelocpp
+
+== Beispiele
+== Erläuterungen
+
+=======================================
+
+Was sind meine Erwartungen ???
+
+== Überblick
+== Muss C++ lesen / verstehen können
+== Was MUSS DRIN SEIN 
+== Was kann ich außer C/C++ noch (Querbezüge)
+== Nicht: Referent // Eher:  Verständnis
+== Multithreading
+
+Was bringe ich mit : Agenda
+
+=======================================
+
+2 Aktionen:
+
+Agenda: Roter Faden
+
+a) Github
+
+b) Quellcode:
+
+   Program.cpp  ==> Unterprogramm
+
+=====================================
+
+Referenz:  C++
+
+=> Im Hintergrund:  Es wird die Adresse eines Objekts betrachtet
+
+=> Eine Referenz bezieht sich auf ein Objekt,
+   das ich unter seinem NAMEN anspreche.
+
+Es gibt auch Objekt OHNE Namen:  a + b
+
+   Temporäre Objekte, anonyme Objekt
+
+   Zwischenergebnisse // Ausdrücke
+
+const& kann anonyme Objekte weiterreichen.
+
+====> Performanz  // KEINE KOPIEN
+
+Ab C++ 11:
+
+Es gibt nun 2 ARTEN von Referenzen:
+
+std::string&   ===> Für Objekte MIT NAMEN
+std::string&&  ===> Für Objekte OHNE NAMEN // tmp.Objekte
+
+====================================================
+
+Wiederholung: Rule of Three
+
+https://github.com/pelocpp/cpp_introduction/blob/master/Cpp_Introduction/Markdown/RuleOfThree.md
+
+====================================================
+
+Why ??????????????????????????????????????????
+
+
+:-: .... 460   // wird jetzt gelöscht
+:-: .... 2A0   // liegt im Vektor
+
+2 Objekte waren nötig, um "ein" Objekt im Vektor
+ablegen zu können.
+
+Lösung: 
+
+C++ 11:  Move-Semantik
+
+:-: .... 460
+
+
+// =========================================
+
+Java, C#:   Kennen dieses Problem nicht:
+
+            new // rein referenz-basiert // NUR: HEAP
+
+C++:        i)  Stack-basiert: Ein Objekt liegt am STACK
+            ii) Referenz-basiert
+
+
+===========================================
+
+Why ................................
+
+===========================================
+
