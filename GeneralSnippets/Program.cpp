@@ -20,7 +20,7 @@ int main()
     try
     {
         //main_accumulate();
-        //main_algorithms();
+        main_algorithms();
         //main_allocator();
         //main_any();
         //main_argument_dependent_name_lookup();
@@ -57,7 +57,7 @@ int main()
         //main_initializer_list();
         //main_input_output_streams();  
         //main_invoke();
-        main_lambdas();
+       // main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
         //main_literals();

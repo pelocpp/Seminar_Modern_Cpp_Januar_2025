@@ -180,8 +180,66 @@ Beispiel:
 124
 125
 
+// ===================================
+
+// Algorithmen
+
+// Übung 
+
+Initialization with a constant value
+
+Vorbelegung eines Containers mit einem konstanten Wert.
+
+Bemerkung:
+
+values[i] = 123.0;
+
+Zugriff auf den Container mit 'operator[]'
+
+Dies geht nur bei "sequentiellen" Containern !!!
+
+Random Access ==> Index-Operator []
+
+// =======================================
+
+==>   for_each   ==>   for_each ( int elem of container ) 
+
+C++:  
+
+i)    for_each auch in C++:  Keyword:  for
+
+ii)   Wie unterscheidet sich "klassischer for" von for_each:
+
+     Doppelpunkt
+
+std::generate(
+    values.begin(),
+    values.end(),
+
+    [] () { return 123.0; }
+);
+
+Wie funktioniert std::generate ?
+
+An einem Beispiel: std::vector<double> vec(10);
+
+===> Der Lambda wird 10 Mal aufgerufen:
+
+Pro Aufruf wird ein Wert berechnet (123.0;)
+und an die 0.te, 1.te, 2.te etc. Stelle im Container
+geschrieben.
+
+// =====================
+
+Move-Semantik:
+==============
+
+Aufgaben zur Move-Semantik:
+
+Aufgabe 1	Verschiebe-Semantik am Beispiel einer benutzerdefinierten Klasse
+
+Aufgaben zu Lambda Funktionen
 
 
-15:35 
 
 

@@ -11,7 +11,7 @@ module modern_cpp:algorithms;
 namespace Algorithms {
 
     //static constexpr int Size = 100'000'000;  // release
-    static constexpr int Size = 10'000'000;     // debug
+    static constexpr int Size = 100'000'000;     // debug
 
     // =================================================================================
     // Initialization with a constant value
@@ -66,8 +66,9 @@ namespace Algorithms {
 
         std::vector<double> values(Size);
 
+        // parallelisierte Version
         std::fill(
-            std::execution::par,
+            std::execution::par,  // Wunsch
             values.begin(),
             values.end(),
             123.0
@@ -85,7 +86,7 @@ namespace Algorithms {
         std::for_each(
             values.begin(),
             values.end(),
-            [](auto& elem) { elem = 123.0; }
+            [] (auto& elem) { elem = 123.0; }
         );
     }
 
@@ -97,7 +98,7 @@ namespace Algorithms {
 
         std::vector<double> values(Size);
 
-        for (auto& elem : values) {
+        for (auto& elem : values) {  // go-for range-based for loop
             elem = 123.0;
         }
     }
@@ -113,6 +114,7 @@ namespace Algorithms {
         std::generate(
             values.begin(),
             values.end(),
+
             [] () { return 123.0; }
         );
     }
@@ -430,13 +432,13 @@ namespace Algorithms {
     }
 }
 
-void main_algorithms()
+void main_algorithms() 
 {
     using namespace Algorithms;
     test_const_initialization();
-    test_initialization();
-    test_sum_calculation();
-    test_copying();
+    //test_initialization();
+    //test_sum_calculation();
+    //test_copying();
 }
 
 // =====================================================================================
