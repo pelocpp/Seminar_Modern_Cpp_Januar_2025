@@ -112,3 +112,76 @@ Why ................................
 
 ===========================================
 
+Initialisierung
+
+Einheitliche Initialisierung // Uniform Initialization
+
+"Brace" Initialization
+
+// local variable
+int n = 123;
+
+int n{ 123 };
+
+        double d1 = ival;     // Compiles
+00007FF619B61620  cvtsi2sd    xmm0,dword ptr [ival]  
+00007FF619B61625  movsd       mmword ptr [d1],xmm0  
+
+        double d2 = 123;      // Compiles
+00007FF619B6162A  movsd       xmm0,mmword ptr [__real@405ec00000000000 (07FF619D750A8h)]  
+00007FF619B61632  movsd       mmword ptr [d2],xmm0  
+
+// =================================================
+
+Lambda: 
+
+Historisch:
+
+a) C-Funktion
+
+b) Aufrufbares Objekt
+
+c) Klassen für aufrufbare Objekte können innerhalb von 
+   Funktionen / Methoden definiert werden.
+
+   Why ????  ===> So ist ein Lambda in C++ realisiert.
+
+Bemerkung / Achtung:
+
+Lambda: "Ist eine Funktion ohne Namen" 
+
+Ist nicht falsch :)
+
+Exakt: Lambda: Ist ein Objekt !!!!!!!!!!!!!!!!!!
+
+Hinter den Kulissen:
+
+Ein Lambda ist ein Objekt vom Typ einer aufrufbaren Klasse.
+
+Diese wird versteckt in der aktuellen Funktion definiert.
+
+Der "Inhalt der Lambda-Funktion" wird dem Aufruf-Operator (operator())
+der versteckten Klasse zugeordnet.
+
+In der Voreinstellung ist diese Methode / operator()
+als const definiert.
+
+Mit 'mutable' kann man die const-ness entfernen.
+
+// ===================================
+
+Ein Lambda ist ein Objekt :) einer anonymen Klasse.
+
+Was besitzen Objekte ==> Instanzvariablen
+
+Beispiel:
+
+123
+124
+125
+
+
+
+15:35 
+
+

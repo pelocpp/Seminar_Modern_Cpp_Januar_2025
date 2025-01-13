@@ -2,12 +2,18 @@
 // Lambda01.cpp // Lambda Methods
 // =====================================================================================
 
+module;
+
+#include <print>
+
 module modern_cpp:lambda;
 
 namespace Lambdas {
 
+    // C-Stilistisch
     static bool compare (int n1, int n2) {
-        return n1 < n2;
+        std::println("vgl. {0} mit {1}", n1, n2);
+        return n1 > n2;
     }
 
     class Comparer
@@ -30,7 +36,7 @@ namespace Lambdas {
     {
         Comparer obj{ false };
 
-        bool result{ obj(1, 2) };
+        bool result{ obj (1, 2) };
 
         std::cout << std::boolalpha << result << std::endl;
     }
@@ -47,9 +53,9 @@ namespace Lambdas {
         std::cout << std::endl;
 
         std::sort(
-            vec.begin(),
-            vec.end(),
-            compare
+            vec.begin(),  // Iteratoren
+            vec.end(),    // Iteratoren
+            compare       // Kriterium, wie sortiert werden soll (Vergleich)
         );
 
         for (int n : vec) {
@@ -68,10 +74,12 @@ namespace Lambdas {
         }
         std::cout << std::endl;
 
+        Comparer cmp{ false };
+
         std::sort(
             vec.begin(),
             vec.end(),
-            Comparer{}  // Comparer{ false }
+            cmp               // operator()
         );
 
         for (int n : vec) {
@@ -127,10 +135,14 @@ namespace Lambdas {
         }
         std::cout << std::endl;
 
+        // Vorteil: Alles an einem ORT !!!
         std::sort(
             vec.begin(),
             vec.end(),
-            [] (int n1, int n2) { return n1 < n2; }
+            [] (int n1, int n2) {
+                std::println("Lambda: {} mit {}", n1, n2);
+                return n1 < n2;
+            }
         );
 
         for (int n : vec) {
@@ -155,8 +167,9 @@ namespace Lambdas {
     static void test_06() {
 
         // defining a lambda without 'auto'
-        std::function<int(int, int, int)> lambdaWithThreeParams {
-            [] (int x, int y, int z) {
+        std::function< int(int, int, int) > lambdaWithThreeParams {
+
+            [] (int x, int y, int z) -> int {
                 return x + y + z;
             }
         };
@@ -171,9 +184,26 @@ namespace Lambdas {
         // in the scope of the lambda: We do so by defining a variable
         // in the lambda-capture without specifying its type:
 
-        // lambda with variable definition
-        auto lambda = [variable = 10] () { return variable; };
+        // lambda with instance variable definition
+
+     //   auto variable = 123;
+
+        auto lambda = [ variable = 123 ] () mutable -> int {
+
+           // int variable = 123;
+            ++variable;
+            return variable;
+        };
+
+     //   ++variable;
+
         std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+
+        return;
+
+
 
         // Captures default to 'const value':
         // The mutable keyword removes the 'const' qualification from all captured variables
@@ -188,12 +218,12 @@ namespace Lambdas {
         std::cout << std::endl;
     }
 
-    static void test_08() {
+    static void test_08(int n) {
 
-        int n = 1;
+  //      int n = 1;
         int m = 2;
 
-        auto l1 = [=] {
+        auto l1 = [=] {   // Will ich n als Kopie oder via Referenz bzgl. der Originals verwenden ?
             std::cout << "Copy:      " << n << " " << m << std::endl;
         };
 
@@ -239,7 +269,7 @@ namespace Lambdas {
             std::cout << "Reference: " << n << " " << m << std::endl;
         };
 
-        return lambda;  // I would't do this never ever :-)
+        return lambda;                                             // I would't do this never ever :-)
     }
 
     static void test_09() {
@@ -324,19 +354,19 @@ namespace Lambdas {
 void main_lambdas()
 {
     using namespace Lambdas;
-    test_00();
-    test_01();
-    test_02();
-    test_03();
-    test_04();
-    test_05();
-    test_06();
+    //test_00();
+    //test_01();
+    //test_02();
+    //test_03();
+    //test_04();
+    //test_05();
+    //test_06();
     test_07();
-    test_08();
-    test_09();
-    test_10();
-    test_11();
-    test_12();
+    //test_08(123);
+   // test_09();
+    //test_10();
+    //test_11();
+    //test_12();
 }
 
 // =====================================================================================
