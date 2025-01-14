@@ -1,0 +1,182 @@
+// =========================================
+
+Modern C++
+
+Peter Loos 
+
+Dienstag
+
+=============================================
+
+Smart Pointer
+============
+
+Problem: new
+
+Das delete muss vorhanden sein ... wann auch immer ... EINMAL
+
+Hmmm, kann in größeren Programmen nicht so einfach sein
+
+Idee:
+
+a) Objekt-Orientierung
+
+b) Konstruktor // Destruktor
+
+c) Destruktor: Wann wird dieser aufgerufen?
+
+   Wenn das Objekt zerstört wird.
+
+   Mit delete (new) // wenn es den Scope verlässt.
+
+   {
+       AClass obj;   // new
+
+       ...
+
+
+   }   <=== Destruktor von obj wird hier aufgerufen.  // delete 
+       ===> Determinismus ist vorhanden.
+
+d) Zeiger ptr: Wurde durch new erzeugt 
+
+   Idee: Man übergebe diesen Zeiger in die Obhut einer Hüllenojekts.
+
+e) Hüllenklasse: Konstruktor  ==> new // ptr übergeben
+                 Destruktor   ==> delete an ptr aufrufen
+
+f) Das hört sich zunächst nach der Lebensdauer des Zeigers
+   in Bezug auf einen Scope an:
+
+   Das kann man verbessern / erweitern
+
+auto_ptr: deprecated
+
+std::unique_ptr
+std::shared_ptr
+std::weak_ptr
+
+Unterscheidung: Strategie
+
+std::unique_ptr:
+----------------
+
+Ein std::unique_ptr-Objekt kann zu einem ZEITPUNKT im Programm
+nur / genau EINEN BESITZER (Owner) haben.
+
+Kopieren ???  Weiterreichen ???
+
+
+std::shared_ptr:
+----------------
+
+Ein std::shared_ptr-Objekt kann zu einem ZEITPUNKT im Programm
+MEHRERE BESITZER (Owner) haben.
+
+Kopieren ???  Weiterreichen ???
+
+std::weak_ptr:
+--------------
+
+Unterstützt den std::shared_ptr / Gehört zum std::shared_ptr
+
+Er bietet einen TEMPORÄREN BESITZ.
+
+=================================================
+
+Performanz:
+
+Der std::shared_ptr hat einen gewissen Overhead:
+
+== Referenz-Counting: Dieses ist thread-safe
+
+=================================================
+
+std::shared_ptr hat gewisse Ähnlichkeiten mit Garbagge Collection
+von C# / Java:  Referenz-Counting.
+
+=================================================
+
+std::unique_ptr   ==> Vorsicht ist geboten
+
+std::shared_ptr:  PROBLEM
+
+       Dieser funktioniert nicht IMMER.
+       Es kann sein, dass der dyn. allokierte SPEICHER NIE Freigegeben wird.
+
+Kür: std::weak_ptr
+
+a) std::weak_ptr: Wir arbeitet dieser.
+
+b) Was ist das eigentliche PROBLEM des std::shared_ptr
+
+Frage:
+
+Observer-Pattern
+
+Siehe auch
+
+https://github.com/pelocpp/cpp_design_patterns/blob/master/Patterns/Observer/Resources/Readme.md
+
+
+== Die Beobachter kennen das Subject (Ereignis Quelle)
+
+== Im Subject treten Änderungen des Zustands ein.
+
+== Ein Subject kennt die Beobachter, um an diesen bei Bedarf (Zustandsänderung)
+   eine 'update'-Methode aufrufen zu können.
+
+Bebachten: C++
+
+Subject:     std::shared_ptr
+
+Beobachter:  std::shared_ptr
+
+Am Subject: attach (Beobachter)
+
+            attach (std::shared_ptr)  <=== Nein
+            attach (std::weak_ptr)    <=== Yes
+
+Ownership  // Besitzer
+
+Konsequenz: Ereignis tritt ein:
+
+            // subscriber->update : No
+
+            subscriber.lock()  ==> std::shared:  empty or ! empty
+                    
+Fazit:
+
+a) std::shared_ptr : Jepp. Passt ABER BITTE NUR im Falle von BESITZ.
+b) Möglichst viele std::weak_ptr für den temp. Besitz.
+c) NUR std::shared_ptr: STRENGE (Feste) KOIPPLUNG.
+d) std::shared und  std::weak_ptr: Losen Kopplung
+
+==================================================================
+
+Visualisierung von Aktien, Wetterdaten, Bauteilen ,...
+
+Visualisierung: std::shared oder std::weak_ptr
+
+==================================================================
+
+constexpr
+
+Neuerungen bzgl. const
+
+Wie kann ich dieses Konzept in meinen Aufgaben / Projekten
+sinnvoll einsetzen?
+
+Welche Anwendungsfälle gibt es hierfür?
+
+Frage:
+
+std::vector<>    ====> Daten liegen am Heap
+
+=======================================================
+
+Attribute:
+
+Man kann mit Attributen den Quelltext versehen.  // Standard
+
+=======================================================

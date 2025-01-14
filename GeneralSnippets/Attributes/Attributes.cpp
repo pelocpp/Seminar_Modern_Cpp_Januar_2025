@@ -15,6 +15,9 @@ namespace StandardAttributes {
 
     static void test_01()
     {
+        [[ maybe_unused ]]int notUsed;
+
+
         int result = discard_test();
 
         // another call to discard_test:

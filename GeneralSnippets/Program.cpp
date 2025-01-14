@@ -20,7 +20,7 @@ int main()
     try
     {
         //main_accumulate();
-        main_algorithms();
+        //main_algorithms();
         //main_allocator();
         //main_any();
         //main_argument_dependent_name_lookup();
@@ -53,7 +53,7 @@ int main()
         //main_functional_programming();
         //main_functional_programming_alternate();
         //main_generate();
-        //main_generic_functions();
+        main_generic_functions();
         //main_initializer_list();
         //main_input_output_streams();  
         //main_invoke();
@@ -105,7 +105,7 @@ int main()
         //main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
-        //main_weak_pointer();
+       // main_weak_pointer();
 
         //main_exercises();
     }

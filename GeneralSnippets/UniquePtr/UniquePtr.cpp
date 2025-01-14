@@ -4,10 +4,11 @@
 
 module;
 
+#include <memory.h>
 #include <stdio.h>
 #include <windows.h>
 
-module modern_cpp:unique_ptr;
+module modern_cpp:unique_ptr; 
 
 namespace UniquePointerGeneral {
 
@@ -23,8 +24,8 @@ namespace UniquePointerGeneral {
         (*ptr)++;
         std::println("*ptr:    {}", *ptr);
 
-        // take ownership right now:
-        // std::unique_ptr<int> ptr2{ std::move(ptr) };
+        // take ownership right now // Nein, wenn ich nicht der OWNER bin
+        std::unique_ptr<int> ptr2{ std::move(ptr) };
     }
 
     static void storeUniquePointerSafe(const std::unique_ptr<int>& ptr)
@@ -50,6 +51,11 @@ namespace UniquePointerGeneral {
 
     static void test_01()
     {
+        //std::unique_ptr<int> xxx;
+        //std::unique_ptr<int> yyy;
+        //yyy = xxx;
+
+
         // create a unique_ptr to an int with value 123
         std::unique_ptr<int> ptr1{ new int{ 123 } };
         // or
@@ -100,7 +106,7 @@ namespace UniquePointerGeneral {
         storeUniquePointer(ptr);
 
         // C++ Core Guidelines
-        storeUniquePointerAlternate(ptr.get());
+     //   storeUniquePointerAlternate(ptr.get());
 
         // does this work?
         std::println("*ptr:    {}", *ptr);

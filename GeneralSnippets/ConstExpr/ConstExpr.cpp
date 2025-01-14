@@ -58,15 +58,17 @@ namespace ConstExprDynamicData {
     static constexpr int naiveSum(unsigned int n)
     {
         auto ip = new int[n];
-        std::iota(ip, ip + n, 1);
-        auto tmp = std::accumulate(ip, ip + n, 0);
+        std::iota(ip, ip + n, 1);         // Vorbelegung: n, n+1, n+2 // Start: n=1
+        auto tmp = std::accumulate(ip, ip + n, 0);  // Summe ... 
         delete[] ip;
         return tmp;
     }
 
     static void testDynamicData()
     {
-        constexpr int sum = naiveSum(10);
+        // 1 + 2 + 3 + 4 + 5 = 15
+        constexpr int n = 6;
+        constexpr int sum = naiveSum(n);
         std::println("Sum from 1 up to 10: {}", sum);
     }
 }
@@ -138,8 +140,21 @@ namespace ConstExprPow {
     }
 }
 
+void main_more_On_Constexpr_Lamdas()
+{
+    []() {};
+    [] {};    // shortest Lambda on earth
+
+    auto sum = [](int n, int m) { return n + m;};
+
+    auto result = sum(11,12);
+
+    constexpr auto sum2 = [](int n, int m) { return n + m;} (111, 222) ;
+}
+
 void main_constexpr()
 {
+    main_more_On_Constexpr_Lamdas();
     ConstExprComplex::testComplex();
     ConstExprDynamicData::testDynamicData();
     ConstExprPow::testPower();

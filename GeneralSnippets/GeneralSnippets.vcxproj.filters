@@ -1178,6 +1178,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Notizzettel.txt.txt" />
+    <Text Include="..\Notizzettel_Dienstag.txt" />
+    <Text Include="..\Notizzettel_Montag.txt" />
   </ItemGroup>
 </Project>

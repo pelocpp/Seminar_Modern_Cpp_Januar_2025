@@ -5,7 +5,7 @@
 module modern_cpp:generic_functions;
 
 
-namespace GenericFunctions {
+namespace GenericFunctions { 
 
     // -------------------------------------------------------------------
 
@@ -442,7 +442,7 @@ static void test_generic_lambdas()
     test_16();
 }
 
-void main_generic_functions()
+void main_generic_functions() 
 {
     test_generic_functions();
     test_generic_lambdas();
