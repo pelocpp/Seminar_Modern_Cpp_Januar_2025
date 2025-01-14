@@ -34,7 +34,9 @@ namespace InitializerList {
     static void test_01() {
 
         // testing functions expecting lists in function call
-        int sum = adder({ 1, 2, 3, 4, 5 });
+
+        int sum = adder ( { 1, 2, 3, 4, 5, 6, 7, 8 } );
+
         std::cout << sum << std::endl;
 
         print({ 1, 2, 3, 4, 5 });
@@ -66,9 +68,11 @@ namespace InitializerList {
     };
 
     // container-like classes
-    class Polygon {
+    class Polygon
+    {
     public:
-        Polygon(std::initializer_list<Point> points)
+        // sequence constructor
+        Polygon( std::initializer_list<Point> points )
             : m_points{ points }
         {}
 
@@ -88,7 +92,7 @@ namespace InitializerList {
             }
         };
 
-        // same example - with brace elision
+        // same example - with brace elision // eine Klammerebene weglassen
         Polygon polygon2
         {                          // c'tor Polygon - using brace initialization syntax
             { 45.0, 45.0 },        // c'tor Point - using brace initialization syntax
@@ -103,11 +107,12 @@ namespace InitializerList {
     // container-like class: testing precedence of constructors
     class TinyContainer {
     public:
-        TinyContainer() {}
-        TinyContainer(int value) {}
-        TinyContainer(std::initializer_list<int>) {};
+        TinyContainer() {}   // default
+        TinyContainer(int value) {}    // ein int
+        TinyContainer(std::initializer_list<int>) {};  // sequence constructor
     };
 
+   
     static void test_04() {
 
         TinyContainer tc0;                  // TinyContainer::TinyContainer()

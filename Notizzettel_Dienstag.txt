@@ -180,3 +180,127 @@ Attribute:
 Man kann mit Attributen den Quelltext versehen.  // Standard
 
 =======================================================
+
+auto:
+
+a) auto  => Vereinbarung von Variablen
+
+b) auto  => Als Rückgabetyp
+
+c) auto  => Als Parameter
+
+
+Performanz
+
+=======================================================
+
+C++:
+
+==> objekt-orientierte Programmiersprache  // Bjarne Stroustrup (C with Classes)
+==> Generische Programmierung (Templates)  // Alexander Alexandrowitsch Stepanow
+
+==> Bibliothek: STL Standard Template Library 
+
+    std::vector<int>
+
+=======================================================
+
+std::initializer_list: auf dem Stapel
+std::vector:           auf dem Heap
+
+Why ?????????????????????????????????
+
+Performanz:  new // Heap ist laufzeit-kritischer
+Embedded Programmierung:  new nahezu verboten
+
+=======================================================
+
+std::vector<int> vec(10);    // Length: 10 - Werte: 0
+std::vector<int> vec{ 10 };  // Length: 1 - Wert: 10
+
+VORSICHT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+=======================================================
+
+Konstanten // Literal
+
+100
+
+123.456
+
+100l
+
+100ll
+
+123.456f
+
+100_km 
+
+200_meter
+
+50_euro
+
+50.25_euro
+
+0xFF0000_farbe  // RGB // rot
+
+0xFF0000_rgb  // RGB // rot   ==> Datentyp: Muss nicht elementar sein:
+        
+        class Color
+
+
+100_kg
+
+C++:  Lexikon: alle "Wörter" der Programmiersprache 
+      Grammatik: Korrektheit aller "Sätze" der Programmiersprache 
+
+C++:  Feature: Man kann das Lexikon erweitern :)
+
+Wie:
+
+a) operator"":    Literal Operator
+b) Syntax:        operator""  suffix ( parameter )
+
+suffix zB _kg, _euro, _farbe 
+
+UDL  => user defined literal
+
+technologische Werte / Konstanten
+
+// =================================================
+
+std::variant
+
+Variablen dieses Typs können Werte unterschiedlichen Datentyps
+aufnehmen.
+
+Beispiel:
+
+Sheets-Anwendung: Zelle , Cell
+
+==> ganzzahlig, Gleitkomma, Währung (Currency), Datum, Zeichenkette
+
+std::variant
+
+Was ist aktuell für ein Datentyp eingestellt / vorhanden ???
+
+===> Man kann einen std::variant "besuchen"
+
+Exemplarisch:
+
+C++:    Analyse // Programmierung mit Datentypen
+
+Klassisch: Programmierung mit Werten // Objekt // Daten
+
+C# / Java: Reflection
+
+C++: C++ 26 Neu aufgesetzt.
+
+==========================================================
+
+Aufgaben zu Smart Pointer
+
+Aufgaben zu Generic Function
+
+
+

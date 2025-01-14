@@ -37,7 +37,7 @@ namespace Literals_Color_Runtime {
         friend std::ostream& operator<< (std::ostream&, const Color&);
 
     private:
-        uint8_t m_r;
+        uint8_t m_r;   // 0 .. 255  
         uint8_t m_g;
         uint8_t m_b;
 
@@ -58,8 +58,12 @@ namespace Literals_Color_Runtime {
         return os;
     }
 
+    // unsigned long long
+    // long double (?)
+    // "..." // const char*
+
     // literal operator ("cooked" version)
-    static Color operator"" _rgb(unsigned long long int value) {
+    static Color operator"" _rgb (unsigned long long int value) {
 
         if (value > 0xFFFFFF) {
             throw std::runtime_error("literal too large");
@@ -96,7 +100,9 @@ namespace Literals_Color_Runtime {
 
     static void test_02() {
 
-        Color red{ 0xFF0000_rgb };
+      //  int n = 111111111111111111111111111111111111111111111111111111111;
+
+        Color red{ 0x1FF0000_rgb };
         std::cout << red << std::endl;
 
         Color magenta{ 0xFF00FF_rgb };
@@ -258,8 +264,10 @@ namespace Literals_Color_CompileTime {
     // throws errors at compile time
     static void test_03_with_errors() {
 
+       // int n = 111111111111111111111111111111111111111111111;
+
         // value outside rgb range
-        // constexpr Color col1{ 0x1FFFFFF_rgb };
+        // constexpr Color col1{ 0x1FF00FF_rgb };
 
         // illegal hexadecimal digit
         // constexpr Color col2{ "0x00GG00"_rgb };

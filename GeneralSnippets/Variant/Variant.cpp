@@ -2,6 +2,10 @@
 // Variant.cpp // std::variant
 // =====================================================================================
 
+module;
+
+#include <variant>
+
 module modern_cpp:variant;
 
 namespace VariantDemo {
@@ -20,9 +24,11 @@ namespace VariantDemo {
 
         // -------------------------------------------------
 
+        // std::get<index>    Welches get ist aufzurufen?? ÜBESETZER 
+
         {
             size_t index{ var.index() };
-            int n{ std::get<0>(var) };    // std::get using index
+            int n{ std::get<0>(var) };    // std::get using compile_time index
             std::println("{} - Value: {}", index, n);
         }
 
@@ -87,13 +93,50 @@ namespace VariantDemo {
 
     // -------------------------------------------------------------------
 
+    // primary template
+    template <class T>
+    struct my_remove_reference
+    {
+        using type = T;
+    };
+
+    // template specialization: T = long
+    template <>
+    struct my_remove_reference<long> {
+        using type = long;
+    };
+
+    // second template specialization: T is a reference type
+    template <typename T>
+    
+    struct my_remove_reference<T&> {
+        using type = T;
+    };
+
+
     static void test_03() {
 
         std::variant<int, double, std::string> var{ 123 };
 
         // using a generic visitor (matching all types in the variant)
-        auto visitor = [](const auto& elem) {
-            std::println("{}", elem);
+        auto visitor = [] ( const auto& elem ) {
+
+            using ElemType = decltype (elem);
+            using ElemTypeWithoutRef = my_remove_reference<ElemType>::type;
+            using ElemTypeWithoutRefAndConst = std::remove_const<ElemTypeWithoutRef>::type;
+
+            if (std::is_same<ElemTypeWithoutRefAndConst,int>::value == true) {
+                std::println("int: {}", elem);
+            }
+            else if (std::is_same<ElemTypeWithoutRefAndConst, double>::value == true) {
+                std::println("double: {}", elem);
+            }
+            else if (std::is_same<ElemTypeWithoutRefAndConst, std::string>::value == true) {
+                std::println("std::string: {}", elem);
+            }
+            else {
+                std::println("Unbekannt: {}", elem);
+            }
         };
 
         std::visit(visitor, var);
@@ -107,7 +150,7 @@ namespace VariantDemo {
 
     // -------------------------------------------------------------------
 
-    class Visitor
+    class Visitor   // aufrufbares Objekt // operator()
     {
     public:
         void operator() (int n) {
@@ -230,13 +273,13 @@ namespace VariantDemo {
 void main_variant()
 {
     using namespace VariantDemo;
-    test_01();
-    test_02();
+    //test_01();
+    //test_02();
     test_03();
-    test_04();
-    test_05();
-    test_06();
-    test_07();
+    //test_04();
+    //test_05();
+    //test_06();
+    //test_07();
 }
 
 // =====================================================================================

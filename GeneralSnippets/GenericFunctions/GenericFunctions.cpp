@@ -9,16 +9,23 @@ namespace GenericFunctions {
 
     // -------------------------------------------------------------------
 
-    static auto function(auto x, int y) {
+    // template funktion
+    template <typename T>
+    static void function(T x, int y) {
+        std::cout << "x=" << x << ", y=" << y << std::endl;
+    };
+
+    // generic function
+    static void functionNew(auto x, int y) {
         std::cout << "x=" << x << ", y=" << y << std::endl;
     };
 
     static void test_01()
     {
-        function(1, 100);
-        function(2.5, 101);
-        function(std::string{ "ABC" }, 102);
-        function("XYZ", 103);
+        functionNew<int>(1, 100);
+        functionNew<float>(2.5, 101);
+        functionNew<std::string>(std::string{ "ABC" }, 102);
+        functionNew<const char*>("XYZ", 103);
     }
 
     struct Function
@@ -67,10 +74,16 @@ namespace GenericFunctions {
     // -------------------------------------------------------------------
 
     // define a generic function (top-level (!))
-    static auto isGreaterThanFifty(const auto& n) { return n > 50; };
+    static auto isGreaterThanFifty(const auto& n) {
+        return n > 50; 
+    };
 
     static void test_04()
     {
+        //auto isGreaterThanFifty(const auto & n) {
+        //    return n > 50;
+        //};
+
         std::vector<int> intValues{ 44, 65, 22, 77, 2 };
 
         // use generic function with a vector of integers
@@ -78,6 +91,7 @@ namespace GenericFunctions {
             intValues.begin(),
             intValues.end(),
             isGreaterThanFifty<int>
+            // [] (const auto& n) { return n > 50; }
         );
         if (it1 != intValues.end()) {
             std::cout << "Found a value: " << *it1 << std::endl;
@@ -85,7 +99,8 @@ namespace GenericFunctions {
 
         std::vector<double> doubleValues{ 24.5, 75.5, 12.5, 87.5, 12.5 };
 
-        // use exactly the *same* generic function with a vector of doubles
+        // use exactly the *same* generic function with
+        // a vector of doubles
         auto it2 = std::find_if(
             doubleValues.begin(),
             doubleValues.end(),
@@ -160,8 +175,10 @@ namespace GenericLambdas {
 
     static void test_04()
     {
-        // define a generic lambda
-        auto isGreaterThanFifty = [](const auto& n) { return n > 50; };
+        // define a generic lambda (local class) // NOT: top-level
+        auto isGreaterThanFifty = [] (const auto& n) {
+            return n > 50;
+            };
 
         std::vector<int> intValues{ 44, 65, 22, 77, 2 };
 
