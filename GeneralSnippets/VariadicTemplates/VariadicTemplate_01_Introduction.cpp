@@ -19,7 +19,7 @@ namespace VariadicTemplates_Seminar {
 
     void test_variadic_eins() {
 
-        printer<int, int, int, int, int>( 1, 2, 3, 4, 5 );
+        printer( 1, 2, 3, 4, 5 );
     }
 
     // =======================================================
@@ -81,6 +81,7 @@ namespace VariadicTemplates_Seminar {
     
     std::unique_ptr<T> my_make_unique( TArgs ... args ) { // args pack
 
+        // Unknown u { 1, 2, 3 };
         std::unique_ptr<T> tmp{ new T { args ... } }; 
         return tmp;
     }

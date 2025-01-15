@@ -8,6 +8,84 @@ module;
 
 module modern_cpp:folding;
 
+namespace Folding_Seminar {
+
+    template <typename ... TArgs>
+    auto addiererClassic(TArgs ... args) {
+
+        // args auspacken: in einer Liste
+
+        auto list = { args ... };
+
+        auto result{ 0 };  // Type Deduction
+
+        for (auto elem : list) {
+            result = result + elem;
+        }
+
+        return result;
+    }
+
+    template <typename ... TArgs>
+    auto addiererFolding(TArgs ... args) {
+
+        //            ( ... op pack )
+        auto result{  ( ... +  args )  };
+
+        return result;
+
+    }
+
+    template <typename ... TArgs>
+    auto subtrahiererFolding(TArgs ... args) {
+
+        // 1 - (2 - 3):
+        // Ergebnis: -4
+        // Oder:     +2  
+
+       //  auto result{ (... - args) };
+        auto result{ (args - ...) };
+
+        return result;
+    }
+
+    template <typename TFirst, typename ... TArgs>
+    void printer(TFirst first, TArgs ... args) {
+
+        // ((std::cout << args1) << args2) << args3 ....
+        // (((init    op pack1) op pack2) op ...) op packN
+
+        //(std::cout << ... << args);
+        //std::cout << std::endl;
+
+        // mit Space: Unary Left Fold mit Operator == Komma
+        //( ... ,  (std::cout << args << " , ") );
+        //std::cout << std::endl;
+        
+        // mit Space: Unary Left Fold mit Operator == Komma und OHNE "letztes Komma"
+        std::cout << first;
+        ( ... ,  (std::cout << " , " << args) );
+        std::cout << std::endl;
+    }
+
+    void test_folding_seminar() {
+
+        // Komma: Ein Operator // Sequenz-Operator
+        int a, b, c;
+
+       // for (int i = 1, j =2; ....)
+
+        a = 1, b = 2;
+
+        c = (a = 1, b = 2);
+
+        auto sum1 = addiererClassic(1, 2, 3, 4, 5, 6, 7, 8);
+        auto sum2 = addiererFolding(1, 2, 3, 4, 5, 6, 7, 8);
+        auto sum3 = subtrahiererFolding(1, 2, 3);
+        printer(111, "ABC", '?', 123.345, '!');
+    }
+}
+
 namespace Folding {
 
     /* folding examples: introduction
@@ -171,17 +249,22 @@ namespace Folding {
     }
 }
 
+
 void main_folding()
 {
+    //using namespace Folding_Seminar;
+    //test_folding_seminar();
+    //return;
+
     using namespace Folding;
-    test_01();
-    test_02();
-    test_03a();
-    test_03b();
-    test_03c();
-    test_03d();
-    test_04();
-    test_05();
+    //test_01();
+    //test_02();
+    //test_03a();
+    //test_03b();
+    //test_03c();
+    //test_03d();
+    //test_04();
+    //test_05();
     test_06_benchmark_folding();
     test_06_benchmark_iterating();
 }

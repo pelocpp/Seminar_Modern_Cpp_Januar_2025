@@ -233,5 +233,68 @@ Folding
 
 Übungen
 
+====================================================
+
+Arithmetische Ausdrücke:
+
+int sum = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10;
+
+===> kann man so einen Ausdruck performant berechnen ????
+
+a) Ja, aber die Summanden müssen als Parameter an
+   eine Funktion übergeben werden.
+
+b) Mit Hilfe einer neuen Syntax: Folding Syntax ("weird")
+
+   a) Runde Klammern
+
+
+================================================
+
+TArgs ... args    : args bezeichnet man als "Pack"
+
+Operationen auf einem Pack:
+
+== einpacken: Geschieht beim Aufruf einer Funktion
+== auspacken: Es wird von 'args' (Pack) eine
+              komma-getrennte Liste erzeugt.
+
+Kann man auf die einzelnen Elemente eines packs zugreifen ???
+
+Jein.
+
+i) Nein, wenn man die Sprache in ihrer Definition zu Grunde legt.
+
+ii) Ja - Vehikel: std::initializer_list
+
+===========================================================
+
+Zugang: Variadischen Templates
+
+Aufgabe 1: Logische Operationen mit beliebig vielen Operanden
+
+Aufgabe 1:
+
+andAll(true, true, true, true, true, true, true, true, false, true);
+
+true && true && true ..........
+
+Mit Folding:
+
+Aufgabe 1: Logische Operationen mit beliebig vielen Operanden
+
+
+===================
+
+    std::is_same // Type Traits ...
+
+    bool result = sameType(43, false, "hello");  // false
+
+    bool result = sameType(1, 2, 3, 4, 5, 6, 7, 8, 9);   // true
+
+Rein variadisch // ohne Folding
+
+mit Folding Ausdruck
+
 
 
