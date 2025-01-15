@@ -5,20 +5,50 @@
 module modern_cpp:concepts_requires_functions;
 
 // using <concepts>
+// #include <concepts>
 template <typename T>
 concept Numerical = std::integral<T> || std::floating_point<T>;
 
 // using <type_traits>
+// #include <type_traits>
 template <typename T>
-concept NumericalEx = std::is_integral<T>::value || std::is_floating_point<T>::value;
+concept NumericalEx = 
+    std::is_integral<T>::value || std::is_floating_point<T>::value;
+
+template <typename T>
+concept EsIstGanzzahlig = std::is_same<T, int>::value || std::is_same<T, long>::value;
 
 namespace Requires_Clause {
 
+    // add soll numerische Werte addieren
+    // numerische Werte: ganzzahlig, Gleitkomma
+    // aktuelle Implementierung: add ginge auch für Zeichenketten
+    // Konkatenation: "ABC" + "DEF" => "ABCDEF"
+
     template <typename T>
-        requires Numerical<T>
+        requires NumericalEx<T>
     auto add(T a, T b)
     {
         return a + b;
+    }
+
+    // auto für elementare Datentypen:  int ist "gesetzt" => int
+    // auto für elementare Datentypen:  int, long, short, size_t => auto
+
+
+    auto addZwei(NumericalEx auto a, NumericalEx auto b)
+    {
+        return a + b;
+    }
+
+    auto addDrei(EsIstGanzzahlig auto a, EsIstGanzzahlig auto b)
+    {
+        return a + b;
+    }
+
+    void testMeinAddDrei()
+    {
+        auto result{ addDrei(12l, 45l) };
     }
 
     // "inlining" constraints on template parameter types
@@ -31,10 +61,10 @@ namespace Requires_Clause {
 
     static void test_concepts_requires_01()
     {
-        auto sum1{ add(123.456f, 654.321f) };
+        auto sum1{ add(123.456f, 654.321f) };  // float // 4 Bytes
         std::cout << sum1 << std::endl;
 
-        auto sum2{ add(123.456, 654.321) };
+        auto sum2{ add(123.456, 654.321) };    // double // 8 Bytes
         std::cout << sum2 << std::endl;
 
         // 'add': no matching overloaded function found		
@@ -48,7 +78,7 @@ namespace Requires_Clause {
         //    the concept 'Numerical<std::string>' evaluated to false
         //    the concept 'std::floating_point<std::string>' evaluated to false
         //    the concept 'std::integral<std::string>' evaluated to false
-        // auto sum4 = add(std::string { "ABC" }, std::string { "DEF" });
+        //auto sum4 = addZwei(std::string { "ABC" }, std::string { "DEF" });
     }
 
     // ---------------------------------------------------------------------------------
@@ -199,7 +229,8 @@ namespace UserDefined_Concept {
 
     // using <type_traits>
     template <typename T>
-    concept GreatIntegral = std::is_integral<T>::value && isGreaterThanWord<T>;
+    concept GreatIntegral =
+        /*std::is_integral<T>::value &&*/ isGreaterThanWord<T>;
 
     template<GreatIntegral T>
     T incrementByOne(const T& arg) {
@@ -216,9 +247,9 @@ namespace UserDefined_Concept {
 
         n = incrementByOne(n);
 
-        // short s{ 1 };
-        // the associated constraints are not satisfied:
-        // s = incrementByOne(s);
+        //short s{ 1 };
+        //// the associated constraints are not satisfied:
+        //s = incrementByOne(s);
 
         n = incrementByTwo(n);
 

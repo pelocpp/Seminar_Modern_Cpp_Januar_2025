@@ -1,0 +1,237 @@
+// =========================================
+
+Modern C++
+
+Peter Loos 
+
+Mittwoch
+
+=============================================
+
+Metaprogramming
+---------------
+
+#include <type_traits>
+
+Programmierung zur Übersetzungszeit:
+
+2 Techniken  // nicht als Konkurrenz
+
+== constexpr
+== template
+
+
+Alexander Stepanov
+
+if: Ist bekannt
+
+Ab C++ 17:
+
+Es gibt ein zweites if-Anweisung: Eine,
+dessen Bedingung der Übersetzer auswertet:
+
+if_compile_time (std::is_same<T,int>::value == true)
+{
+    // anweisungen
+}
+
+a) Bedingung ist erfüllt:
+   Dann wird zu allen Anweisungen INNERHALB der { und } Maschinencode erzeugt
+   
+
+b) Bedingung ist nicht erfüllt:
+   Es werden die Anweisungen übersprungen / ignoriert /
+   KEIN Maschinencode erzeugt
+
+=============================================
+
+C++ 11:
+-------
+
+Große Innovation:
+
+Variadische Templates
+
+// nicht ganz einfach :-)
+
+==> lesen / verstehen
+
+==> why ??????????????????????????????????????
+
+    Transport von Daten:   von "A" nach "B"
+
+    == smart pointer
+    == threads:  thread procedures (parameter)
+    == emplace-Technik
+
+==> anwenden / umsetzen (später)
+
+====================================================
+
+Tool:  Cpp Insights
+
+Frontend:  Von "Modern C++" nach "Classic C++"
+
+====================================================
+
+Wo liegen die Daten eines STL-Containers ???
+
+Wo liegen die Daten des STL-Containers std::vector  ???
+
+Am Heap.
+
+Wieviele Daten sind bei einem std::vector am Heap 
+   reserviert / angelegt / vorhanden ???
+
+Das wird über die so genannte "Capacity" bestimmt.
+
+Neue  "Capacity" = Alte "Capacity" * 1.5
+
+Das kann man einstellen !!!
+
+===================================================
+
+noexcept:
+
+Wann kann man noexcept verwenden.
+
+zB in Methoden die nur aus Wertzuweisungen bestehen.
+
+Beispiel:
+
+Move-Konstruktor
+
+Welche Auswirkungen hat Exception Safety auf MEINEN Source Code ???
+
+std::vector: 
+
+Generischer Container: std::vector<T>
+
+Wie kann ein Vektor Absturzsicherheit garantieren ????
+
+Vorsicht:  Bei neuen Allokationen auf dem Heap KOPIERT er die Elemente um ???
+
+
+=============================================
+
+Was ist das Problem:
+
+int value;
+
+Hat die Variable einen Wert ???
+
+if (value == 0) ...   0 sinnvoll sein
+
+if (value == -1) ...  -1 sinnvoll sein
+
+if (value == -1) ...  -1 sinnvoll sein
+
+100% sichere Lösung:
+
+
+int value;
+bool isValid;
+
+==> std::optional: Um das Vorhandensein eines Werts sicherzustellen.
+
+C#: int?   // Nullable<int>.
+
+Telefonnummer:
+
+std::string number;
+
+long // Länderkennung ??? // Führender Null 0151 ....
+
+// ==================================================
+
+Structured Binding:
+------------------
+
+=====================================================
+
+Zu welchem anderen Sprachmittel ist std::tuple ähnlich ???
+
+std::tuple <char, int, double> values;
+
+Zu einer Struktur - mit 3 Elementen:
+
+struct Werte
+{
+    char   m_ein_char_wert;
+    int    m_int_wert;
+    double m_d_wert;
+}
+
+Ein Tuple ist eine Struktur für Schreibfaule :-)))
+
+Vorsicht: Mit "Structured Binding" erhalten die Werte eines Tuples BEZEICHNER / Namen.
+
+Bermerkung:
+
+Wenige Daten:  std::tuple // std::pair ....
+
+   mit Structured Binding
+
+=================================================
+
+Konzepte (Concepts) und Einschränkungen (Requirements) für Funktionen
+
+C++ 20 :  Keyword: concept
+          keyword: requires
+
+Verbesserung von Templates // generischen Funktionen.
+
+Man kann hier eine Entwicklung beobachten:
+
+a)
+
+    int add(int a, int b)
+    {
+        return a + b;
+    }
+
+    // double ????
+
+
+b)
+    template <typename T> 
+    auto add(T a, T b)
+    {
+        return a + b;
+    }
+
+    Hmmm, jetzt kann für T "alles" verwendet werden ........
+
+    Hier konnte man Datentypen verwenden, die man nicht wollte ...
+
+
+c)
+    template <typename T> 
+       requires ...
+    auto add(T a, T b)
+    {
+        return a + b;
+    }
+
+    "ALLES" wird auf "SINNVOLLES" eingeschränkt
+
+================================================
+
+Modern C++:  Was ist neu ???
+
+== Objekt-Orientierung             ... tut sich nicht mehr so viel ---
+== Generische Programmierung       ... da tut sich viel :)
+
+STL:  Generische Programmierung   sicherer zu schreiben
+
+
+================================================
+
+15:10
+
+Folding
+
+Übungen
+
+
+

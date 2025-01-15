@@ -125,14 +125,15 @@ namespace VariantDemo {
             using ElemTypeWithoutRef = my_remove_reference<ElemType>::type;
             using ElemTypeWithoutRefAndConst = std::remove_const<ElemTypeWithoutRef>::type;
 
-            if (std::is_same<ElemTypeWithoutRefAndConst,int>::value == true) {
+            if constexpr(std::is_same<ElemTypeWithoutRefAndConst,int>::value == true) {
                 std::println("int: {}", elem);
             }
-            else if (std::is_same<ElemTypeWithoutRefAndConst, double>::value == true) {
+            else if constexpr (std::is_same<ElemTypeWithoutRefAndConst, double>::value == true) {
                 std::println("double: {}", elem);
             }
-            else if (std::is_same<ElemTypeWithoutRefAndConst, std::string>::value == true) {
+            else if constexpr (std::is_same<ElemTypeWithoutRefAndConst, std::string>::value == true) {
                 std::println("std::string: {}", elem);
+                std::println("Length: {}", elem.size());
             }
             else {
                 std::println("Unbekannt: {}", elem);
@@ -269,6 +270,47 @@ namespace VariantDemo {
         std::visit(overloadSet, var);
     }
 }
+
+template <typename T>
+using MyVectorContainerEx = std::vector<T>;
+
+static void test_meta()
+{
+    // Iterator  // Iteratorklasse
+    // ==> Position in einem Container
+
+    MyVectorContainerEx<long long> myContainer;
+
+    using MyVectorContainer = std::vector<long>;
+
+    MyVectorContainer numbers;
+    MyVectorContainer::iterator anfang = numbers.begin();
+
+    MyVectorContainer::value_type element;
+
+  //  std::vector<long>::const_iterator
+
+
+
+
+    std::list<int> liste;
+    std::list<int>::iterator anfangListe;
+
+    std::map<int, long> map;
+    std::map<int, long>::iterator anfangMap;
+
+    std::sort(
+        numbers.begin(),
+        numbers.end()
+    );
+
+    int n;
+
+    using ElemType = decltype (n);
+
+
+}
+
 
 void main_variant()
 {

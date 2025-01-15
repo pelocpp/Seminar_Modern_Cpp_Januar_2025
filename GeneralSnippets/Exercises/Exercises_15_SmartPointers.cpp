@@ -221,11 +221,11 @@ namespace Exercises_SmartPointers {
     }
 }
 
-void test_exercises_smartpointer()
+void test_exercises_smartpointer() 
 {
     using namespace Exercises_SmartPointers;
     Exercise_01::testExercise_01();
-    // Exercise_02::testExercise_02();   // crashes when executed
+    Exercise_02::testExercise_02();   // crashes when executed
     Exercise_03::testExercise_03();
 }
 

@@ -15,7 +15,7 @@ namespace TupleSamples {
         std::tuple <char, int, double> values;
 
         // assigning values to tuple using std::make_tuple
-        values = std::make_tuple('A', 123, 123.456);
+        values = std::make_tuple('A', 123, 123.456);  // Transport von Daten
 
         // just in one statement
         std::tuple <char, int, double> moreValues{ 'Z', 987, 987.654 };
@@ -48,7 +48,10 @@ namespace TupleSamples {
     // =======================================================
     // demonstrating use of std::vector with std::tuple elements
 
+    // Beispiel: Eine Zeile in einem Sheet (Excel, Google Sheet) simulieren
     using Row = std::tuple<int, char, double, std::string>;
+
+   // typedef std::tuple<int, char, double, std::string> Row2;
 
     static std::string rowToString(const Row& row)
     {
@@ -82,6 +85,8 @@ namespace TupleSamples {
     // =======================================================
     // same example, but using C++ 17 structured binding
 
+    //using Row = std::tuple<int, char, double, std::string>;
+
     static void test_03()
     {
         Row row1 = std::make_tuple(10, 'A', 1.11, "Mueller");
@@ -89,7 +94,9 @@ namespace TupleSamples {
         Row row3 = std::make_tuple(12, 'C', 3.33, "Hans");
 
         std::vector<Row> mySheet;
+        // std::vector<std::tuple<int, char, double, std::string>> mySheet;
 
+        //mySheet.emplace_back(10, 'A', 1.11, "Mueller");
         mySheet.push_back(row1);
         mySheet.push_back(row2);
         mySheet.push_back(row3);
@@ -102,6 +109,7 @@ namespace TupleSamples {
         std::println("Value: {}", val);
         std::println("Name:  {}", name);
 
+        // Range-based for Loop // Structured Binding
         for (const auto& [id, abbr, val, name] : mySheet)
         {
             std::println("Id:    {}", id);

@@ -35,11 +35,13 @@ namespace StructuredBinding {
 
     static void test_03()
     {
-        int arr[] { 123, 456, 789 };
+        int arr[3] { 123, 456, 789 };
 
-        auto [a, b, c] { arr };
+        auto& [a, b, c] { arr };
 
-        std::println("{}, {}, {}", a, b, c);
+        a = 999;
+
+        std::println("{}, {}, {}", arr[0], b, c);
     }
 
     static void test_04()

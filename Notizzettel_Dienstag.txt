@@ -300,7 +300,4 @@ C++: C++ 26 Neu aufgesetzt.
 
 Aufgaben zu Smart Pointer
 
-Aufgaben zu Generic Function
-
-
 

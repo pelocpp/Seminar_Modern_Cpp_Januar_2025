@@ -541,6 +541,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Notizzettel_Dienstag.txt" />
+    <Text Include="..\Notizzettel_Mittwoch.txt" />
     <Text Include="..\Notizzettel_Montag.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

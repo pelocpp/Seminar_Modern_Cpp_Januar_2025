@@ -46,7 +46,6 @@ namespace OptionalExamples {
 
     class Contact
     {
-
     private:
         std::optional<std::string> m_phone;
 
@@ -73,6 +72,7 @@ namespace OptionalExamples {
 
         if (contact.getPhone()) {
             std::cout << "Number: " << *contact.getPhone() << std::endl;
+            std::cout << "Number: " << contact.getPhone().value() << std::endl;
         }
         else {
             std::cout << "No Number found!" << std::endl;

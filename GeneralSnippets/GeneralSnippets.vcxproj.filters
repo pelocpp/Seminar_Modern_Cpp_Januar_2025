@@ -1180,5 +1180,6 @@
   <ItemGroup>
     <Text Include="..\Notizzettel_Dienstag.txt" />
     <Text Include="..\Notizzettel_Montag.txt" />
+    <Text Include="..\Notizzettel_Mittwoch.txt" />
   </ItemGroup>
 </Project>

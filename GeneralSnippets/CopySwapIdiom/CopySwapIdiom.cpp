@@ -73,30 +73,7 @@ namespace NaiveBigData {
         }
     }
 
-    // copy assignment
-    BigData& BigData::operator= (const BigData& other) {
-
-        // prevent self-assignment
-        if (this == &other) {
-            return *this;
-        }
-
-        // delete old buffer
-        delete[] m_data;
-
-        // allocate a new buffer
-        m_size = other.m_size;
-        m_data = new int[m_size];
-
-        // copy buffer
-        for (int i = 0; i != m_size; ++i) {
-            m_data[i] = other.m_data[i];
-        }
-
-        return *this;
-    }
-
-    // copy assignment - alternate implementation
+    //// copy assignment
     //BigData& BigData::operator= (const BigData& other) {
 
     //    // prevent self-assignment
@@ -104,26 +81,49 @@ namespace NaiveBigData {
     //        return *this;
     //    }
 
-    //    // get the new data ready before we replace the old
-    //    size_t tmpNewSize = other.m_size;
-    //    int* tmpNewData = nullptr;
+    //    // delete old buffer
+    //    delete[] m_data;
 
-    //    if (tmpNewSize > 0) {
-    //        tmpNewData = new int[tmpNewSize];
-    //    }
+    //    // allocate a new buffer
+    //    m_size = other.m_size;
+    //    m_data = new int[m_size]; // ?????? !!!! ????? !!!!! EXCEPTION: bad_alloc 
 
     //    // copy buffer
-    //    for (int i = 0; i != tmpNewSize; ++i) {
-    //        tmpNewData[i] = other.m_data[i];
+    //    for (int i = 0; i != m_size; ++i) {
+    //        m_data[i] = other.m_data[i];
     //    }
-
-    //    // replace old data with new data - all are non-throwing operations
-    //    delete[] m_data;
-    //    m_size = tmpNewSize;
-    //    m_data = tmpNewData;
 
     //    return *this;
     //}
+
+    // copy assignment - alternate implementation
+    BigData& BigData::operator= (const BigData& other) {
+
+        // prevent self-assignment
+        if (this == &other) {
+            return *this;
+        }
+
+        // get the new data ready before we replace the old
+        size_t tmpNewSize = other.m_size;
+        int* tmpNewData = nullptr;
+
+        if (tmpNewSize > 0) {
+            tmpNewData = new int[tmpNewSize];  // bad_alloc
+        }
+
+        // copy buffer
+        for (int i = 0; i != tmpNewSize; ++i) {
+            tmpNewData[i] = other.m_data[i];
+        }
+
+        // replace old data with new data - all are non-throwing operations
+        delete[] m_data;
+        m_size = tmpNewSize;
+        m_data = tmpNewData;
+
+        return *this;
+    }
 
     // ---------------------------------------------------------------------------------
 

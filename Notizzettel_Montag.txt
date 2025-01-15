@@ -2,7 +2,9 @@
 
 Modern C++
 
-Peter Loos  // "Du"
+Peter Loos
+
+peter.loos@gmx.de
 
 C/C++ , Java, C#,  JavaScript, Mobile Progr. (Java)
 
